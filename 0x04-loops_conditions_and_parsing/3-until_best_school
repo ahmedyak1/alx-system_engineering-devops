@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Script print "Best School" 10 fois
+
+k=0
+
+until [ $k -ge 10 ]
+do
+	echo "Best School"
+	k=$(( k + 1 ))
+done
