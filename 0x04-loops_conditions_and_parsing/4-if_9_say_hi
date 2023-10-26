@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Script print "Best School" 10 fois
+
+
+k=1
+
+while [ $k -le 10 ]
+do
+	echo "Best School"
+
+	if [ $k -eq 9 ]
+	then
+		echo "Hi"
+	fi
+
+	k=$(( k + 1 ))
+done
