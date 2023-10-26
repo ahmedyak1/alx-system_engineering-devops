@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Script print: content of cur dir / list format / part of name after 
+
+
+for f in *
+
+do
+	echo "$f" | cut --delimiter="-" -f2
+done
