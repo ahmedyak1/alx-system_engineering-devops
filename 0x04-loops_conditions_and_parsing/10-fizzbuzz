@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
 # script fizz buzz 1 to 100
 
-for k in {1..100}
+cmpt=1
+while [ $cmpt -lt 101 ]
 do
-	if [ $(( k % 15 )) -eq 0 ]
-	then
-		echo "FizzBuzz"
-	elif [ $(( k % 3 )) -eq 0 ]
-	then
-		echo "Fizz"
-	elif [ $(( k % 5 )) -eq 0 ]
-	then
-		echo "Buzz"
-	else
-		echo $k
-	fi
+    if [ $((cmpt % 15)) = 0 ]
+    
+    then
+        echo "FizzBuzz"
+    elif [ $((cmpt % 3)) = 0 ]
+    
+    then
+        echo "Fizz"
+    elif [ $((cmpt%5)) = 0 ]
+    
+    then
+        echo "Buzz"
+    else
+        echo "$cmpt"
+    fi
+    let cmpt+=1
 done
