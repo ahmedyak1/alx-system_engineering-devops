@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# script fizz buzz 1 to 100
+
+for k in {1..100}
+do
+	if [ $(( k % 15 )) -eq 0 ]
+	then
+		echo "FizzBuzz"
+	elif [ $(( k % 3 )) -eq 0 ]
+	then
+		echo "Fizz"
+	elif [ $(( k % 5 )) -eq 0 ]
+	then
+		echo "Buzz"
+	else
+		echo $k
+	fi
+done
