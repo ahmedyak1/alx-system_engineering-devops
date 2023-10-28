@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Script extends prev exec cmd and show line containing the bash word
+
+./1-list_your_processes | grep "bash"
+
