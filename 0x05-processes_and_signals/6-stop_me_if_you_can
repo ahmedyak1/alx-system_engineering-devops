@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# Script kills
+
+pkill -f beyond
+
