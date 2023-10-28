@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-# Script show PID
+# Script shows a stat 
 
-pgrep -l bash
+while true; 
+do
+    echo "To infinity and beyond"
+    sleep 2
+done
 
