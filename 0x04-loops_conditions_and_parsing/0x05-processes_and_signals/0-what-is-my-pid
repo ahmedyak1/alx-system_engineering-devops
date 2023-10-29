@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-# Script shows PID
-
-echo $$
-
