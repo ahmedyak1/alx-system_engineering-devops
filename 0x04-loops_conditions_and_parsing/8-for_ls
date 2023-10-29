@@ -7,3 +7,4 @@ for f in *
 do
 	echo "$f" | cut --delimiter="-" -f2
 done
+
