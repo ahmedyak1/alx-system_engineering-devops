@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Script display all active IPv4 IP
+
+hostname -I | cut -d' ' -f1 ; hostname -i
+
