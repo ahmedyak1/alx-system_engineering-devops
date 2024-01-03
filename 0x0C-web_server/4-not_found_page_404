@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Configure Nginx server so that /redirect_me is redirecting to another page
+
+
+P301_REDI="\\\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
+P404_NOTFOUND="\n\\terror_page 404 /404.html;\n\tlocation = /var/www/html/404.html {\n\t\tinternal;\n\t}"
+MASK="#error_page 404 /404.html;"
+
+
+sudo apt-get update
+sudo apt-get install -y nginx
+sudo chown -R ubuntu /var/www
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+sudo sed -i "30i $P301_REDI" /etc/nginx/sites-available/default
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+sudo sed -i "47i\ $MASK$P404_NOTFOUND" /etc/nginx/sites-available/default
+sudo service nginx restart
+sudo service nginx reload
