@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# install and config proxy
+
+apt-get update
+apt-get -y install --no-install-recommends software-properties-common
+add-apt-repository -y ppa:vbernat/haproxy-2.4
+apt-get -y install haproxy
+
+
+DOM_NAME='ahmedyak.tech'
+INI_F='/etc/default/haproxy'
+C_FILE='/etc/haproxy/haproxy.cfg'
+HAPROXY_LB_CONFIG=\
+"
+#--$DOM_NAME-params-begin--
+backend $DOM_NAME-backend
+	balance roundrobin
+    server 20639-web-01 54.209.215.249:80 check
+    server 20639-web-02 54.209.80.28:80 check
+
+frontend $DOM_NAME-frontend
+	bind *:80
+	mode http
+
+	default_backend $DOM_NAME-backend
+#--$DOM_NAME-params-end--
+"
+
+[ -f "$INI_F" ] || touch "$INI_F"
+[ -f "$C_FILE" ] || touch "$C_FILE"
+
+CONFIG_WORDS=$(grep -Eco "$DOM_NAME-backend" < $C_FILE)
+
+if [ "$(grep -Eco '^ENABLED=[01]$' < $INI_F)" -gt 0 ]; then
+	sed -i 's/^ENABLED=0$/ENABLED=1/' "$INI_F"
+else
+	echo 'ENABLED=1' >> $INI_F
+fi
+
+if [ "$CONFIG_WORDS" -eq 0 ]; then
+	echo -e "$HAPROXY_LB_CONFIG" >> $C_FILE
+else
+	start_tkn="#--$DOM_NAME-params-begin--"
+	end_tkn="#--$DOM_NAME-params-end--"
+	a=$(grep -onE "$start_tkn" < "$C_FILE" | cut -d : -f1)
+	b=$(grep -onE "$end_tkn" < "$C_FILE" | cut -d : -f1)
+	a=$((a - 1))
+	b=$((b + 1))
+	sed -i "$a,$b"d "$C_FILE"
+	echo -en "$HAPROXY_LB_CONFIG" >> $C_FILE
+fi
+
+if [ "$(pgrep -c haproxy)" -le 0 ]; then
+	service haproxy start
+else
+	service haproxy restart
+fi
+
