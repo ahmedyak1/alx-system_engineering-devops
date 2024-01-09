@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# script that usses  ssh to connect to ur server using the priv key
+ssh -i ~/.ssh/school ubuntu@54.209.215.249
