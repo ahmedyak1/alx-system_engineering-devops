@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#Using your debugging skills, find out what's keeping your Ubuntu up.
+#The Nginx installation of the container is listening on port 80. Feel free
+#Start and destroy as many containers as you need to install whatever tool you need.
+
+mv /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+cp /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default 
+service nginx stop
+pkill nginx
+service nginx start
+
