@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#A script for resolving issues with the nginx server
+
+sed -i "s/8080/80/g" /etc/nginx/sites-enabled/default
+service nginx restart
+kill -9 "$(cat /run/nginx.pid)"
