@@ -1,0 +1,17 @@
+# The MySQL  Server configuration file.
+# For explanations see
+
+[mysqld]
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+datadir         = /var/lib/mysql
+log-error       = /var/log/mysql/error.log
+# We only accept connections form localhost by default. 
+# It is advised to disable symbolic links in order to avoid various security issues.
+symbolic-links=0
+
+# ADDITIONS
+
+server-id       = 1
+log_bin         = /var/log/mysql/mysql-bin.log
+binlog_do_db    = tyrell_corp
