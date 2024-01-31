@@ -1,0 +1,47 @@
+"""Program to exports it in json format
+"""
+import json
+import requests
+import sys
+
+
+base_url = 'https://jsonplaceholder.typicode.com'
+
+if __name__ == "__main__":
+
+    user_id = sys.argv[1]
+
+    user_url = '{}/users?id={}'.format(base_url, user_id)
+    # print("user url is: {}".format(user_url))
+
+    # get from api
+    response = requests.get(user_url)
+    data = response.text
+    # convert  the data into JSON format
+    data = json.loads(data)
+    user_name = data[0].get('username')
+
+    tasks_url = '{}/todos?userId={}'.format(base_url, user_id)
+
+    response = requests.get(tasks_url)
+    # pull data from api
+    tasks = response.text
+    # parse the data into JSON format
+    tasks = json.loads(tasks)
+
+    dict_key = str(user_id)
+
+    # create the json
+    builder = {dict_key: []}
+    for task in tasks:
+        json_data = {
+            "task": task['title'],  # or use get method
+            "completed": task['completed'],
+            "username": user_name
+        }
+        # append dictionary key to the dictionary
+        builder[dict_key].append(json_data)
+    json_encoded_data = json.dumps(builder)
+    with open('{}.json'.format(user_id), 'w', encoding='UTF8') as myFile:
+        myFile.write(json_encoded_data)
+

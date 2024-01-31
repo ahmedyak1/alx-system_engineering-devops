@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""program that uses an API to get details about a certain employee's ID
+"""program that uses an API to get detais and Export to CSV
 """
 import json
 import requests
